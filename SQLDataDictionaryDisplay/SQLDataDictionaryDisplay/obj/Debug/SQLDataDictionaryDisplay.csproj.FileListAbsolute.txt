@@ -1,0 +1,10 @@
+C:\Users\Cyberadmin\Desktop\SQLDataDictionaryDisplay\SQLDataDictionaryDisplay\bin\Debug\SQLDataDictionaryDisplay.exe.config
+C:\Users\Cyberadmin\Desktop\SQLDataDictionaryDisplay\SQLDataDictionaryDisplay\bin\Debug\SQLDataDictionaryDisplay.exe
+C:\Users\Cyberadmin\Desktop\SQLDataDictionaryDisplay\SQLDataDictionaryDisplay\bin\Debug\SQLDataDictionaryDisplay.pdb
+C:\Users\Cyberadmin\Desktop\SQLDataDictionaryDisplay\SQLDataDictionaryDisplay\obj\Debug\SQLDataDictionaryDisplay.csprojAssemblyReference.cache
+C:\Users\Cyberadmin\Desktop\SQLDataDictionaryDisplay\SQLDataDictionaryDisplay\obj\Debug\SQLDataDictionaryDisplay.Properties.Resources.resources
+C:\Users\Cyberadmin\Desktop\SQLDataDictionaryDisplay\SQLDataDictionaryDisplay\obj\Debug\SQLDataDictionaryDisplay.csproj.GenerateResource.cache
+C:\Users\Cyberadmin\Desktop\SQLDataDictionaryDisplay\SQLDataDictionaryDisplay\obj\Debug\SQLDataDictionaryDisplay.csproj.CoreCompileInputs.cache
+C:\Users\Cyberadmin\Desktop\SQLDataDictionaryDisplay\SQLDataDictionaryDisplay\obj\Debug\SQLDataDictionaryDisplay.exe
+C:\Users\Cyberadmin\Desktop\SQLDataDictionaryDisplay\SQLDataDictionaryDisplay\obj\Debug\SQLDataDictionaryDisplay.pdb
+C:\Users\Cyberadmin\Desktop\SQLDataDictionaryDisplay\SQLDataDictionaryDisplay\obj\Debug\SQLDataDictionaryDisplay.frmMain.resources
