@@ -89,6 +89,8 @@ namespace SQLDataDictionaryDisplay
 
         private void lbDBItems_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblDependent.Text = "";
+            lblDepending.Text = "";
             lbDepending.Items.Clear();
             lbDependents.Items.Clear();
             DataSet dependencies = new DataSet();
@@ -122,35 +124,83 @@ namespace SQLDataDictionaryDisplay
                 if(dependencies.Tables[0].Columns.Count == 2)
                 {
                     lbDepending.Items.Add(item + " has no dependencies upon other items.");
+                    lblDependent.Text = item + " has the following dependents:";
 
                     foreach(DataRow row in dependencies.Tables[0].Rows)
                     {
-                        lbDependents.Items.Add(item + " has the \"" + row[0].ToString() + "\" " + row[1].ToString() + " dependent upon it.");
+                        if(row[1].ToString() == "check cns")
+                        {
+                            lbDependents.Items.Add("The \"" + row[0].ToString() + "\" check constraint.");
+                        }
+                        else
+                        {
+                            lbDependents.Items.Add("The \"" + row[0].ToString() + "\" " + row[1].ToString() + ".");
+                        }
+                        
                     }
                     
 
                 }
                 else if(dependencies.Tables[0].Columns.Count == 5)
                 {
+                    
                     lbDependents.Items.Add(item + " has no items depending upon it.");
-
-                    foreach(DataRow row in dependencies.Tables[0].Rows)
+                    lblDepending.Text = item + " is dependent upon the...";
+                    foreach (DataRow row in dependencies.Tables[0].Rows)
                     {
-                        lbDepending.Items.Add(item + " is dependent upon the \"" + row[4].ToString() + "\" column of the " + row[0].ToString() + " " + row[1].ToString() + ".");
+                        if(row[1].ToString() == "user table" || row[1].ToString() == "view")
+                        {
+                            if(row[4].ToString() != "" && row[4].ToString() != null)
+                            {
+                                
+                                lbDepending.Items.Add("\"" + row[4].ToString() + "\" column of the " + row[0].ToString() + " " + row[1].ToString() + ".");
+                            }
+                            else
+                            {
+                                lbDepending.Items.Add(row[0].ToString() + " " + row[1].ToString() + ".");
+                            }
+                        }
+                        else
+                        {
+                            lbDepending.Items.Add(row[1].ToString() + " called \"" + row[0].ToString() + "\".");
+                        }
+
                     }
                 }
             }
             else
             {
-                foreach(DataRow row in dependencies.Tables[0].Rows)
+                lblDepending.Text = item + " is dependent upon the...";
+                lblDependent.Text = item + " has the following dependents:";
+                foreach (DataRow row in dependencies.Tables[0].Rows)
                 {
-                    lbDepending.Items.Add(item + " is dependent upon the \"" + row[4].ToString() + "\" column of the " + row[0].ToString() + " " + row[1].ToString() + ".");
-
+                    if (row[1].ToString() == "user table" || row[1].ToString() == "view")
+                    {
+                        if (row[4].ToString() != "" && row[4].ToString() != null)
+                        {
+                            
+                            lbDepending.Items.Add("\"" + row[4].ToString() + "\" column of the " + row[0].ToString() + " " + row[1].ToString() + ".");
+                        }
+                        else
+                        {
+                            lbDepending.Items.Add(item + " is dependent upon the " + row[0].ToString() + " " + row[1].ToString() + ".");
+                        }
+                    }
+                    else
+                    {
+                        lbDepending.Items.Add(item + " is dependent upon the " + row[1].ToString() + " called \"" + row[0].ToString() + "\".");
+                    }
                 }
                 foreach (DataRow row in dependencies.Tables[1].Rows)
                 {
-                    lbDependents.Items.Add(item + " has the \"" + row[0].ToString() + "\" " + row[1].ToString() + " dependent upon it.");
-
+                    if (row[1].ToString() == "check cns")
+                    {
+                        lbDependents.Items.Add("The \"" + row[0].ToString() + "\" check constraint.");
+                    }
+                    else
+                    {
+                        lbDependents.Items.Add("The \"" + row[0].ToString() + "\" " + row[1].ToString() + ".");
+                    }
                 }
             }
         }
