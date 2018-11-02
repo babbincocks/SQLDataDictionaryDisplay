@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace SQLDataDictionaryDisplay
 {
@@ -15,6 +16,8 @@ namespace SQLDataDictionaryDisplay
     {
 
         private string selectedDB = "";
+
+        private string user = "";
 
         private SqlConnection sqlConn;
 
@@ -32,7 +35,7 @@ namespace SQLDataDictionaryDisplay
                 lbDBItems.Items.Clear();
                 selectedDB = cbDatabases.SelectedItem.ToString();
             }
-            using (sqlConn = new SqlConnection("Data Source=PL1\\MTCDB;Initial Catalog=" + selectedDB + "; TRUSTED_CONNECTION=True;"))
+            using (sqlConn = new SqlConnection("Data Source=" + user + ";Initial Catalog=" + selectedDB + "; TRUSTED_CONNECTION=True;"))
             {
                 SqlCommand getTables = new SqlCommand("SELECT * FROM INFORMATION_SCHEMA.TABLES UNION SELECT ROUTINE_CATALOG, " +
                     "ROUTINE_SCHEMA, ROUTINE_NAME, ROUTINE_TYPE FROM INFORMATION_SCHEMA.ROUTINES " +
@@ -61,9 +64,21 @@ namespace SQLDataDictionaryDisplay
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            if(!File.Exists("Datasource.txt"))
+            {
+                string datasrc = "PL1\\MTCDB";
+                File.WriteAllText("Datasource.txt", datasrc);
+            }
+
+            if(File.Exists("Datasource.txt"))
+            {
+                user = File.ReadAllText("Datasource.txt");
+            }
+
             try
             {
-                using (sqlConn = new SqlConnection("Data Source=PL1\\MTCDB;Initial Catalog=master; TRUSTED_CONNECTION=True;"))
+                using (sqlConn = new SqlConnection("Data Source=" + user + ";Initial Catalog=master; TRUSTED_CONNECTION=True;"))
                 {
 
                     SqlCommand getDB = new SqlCommand("SELECT name FROM sys.databases", sqlConn);
@@ -97,7 +112,7 @@ namespace SQLDataDictionaryDisplay
             string item = lbDBItems.SelectedItem.ToString();
             try
             {
-                using (sqlConn = new SqlConnection("Data Source=PL1\\MTCDB;Initial Catalog=" + selectedDB + "; TRUSTED_CONNECTION=True;"))
+                using (sqlConn = new SqlConnection("Data Source=" + user + ";Initial Catalog=" + selectedDB + "; TRUSTED_CONNECTION=True;"))
                 {
                     SqlCommand dependProc = new SqlCommand("sp_depends", sqlConn);
                     dependProc.CommandType = CommandType.StoredProcedure;
